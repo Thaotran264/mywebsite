@@ -1,12 +1,14 @@
-import { createContext, useEffect, useReducer } from 'react';
+import { createContext, useEffect, useReducer, useState } from 'react';
 import { getData } from '../utils/fetchData';
 import reducers from './reducers';
 
 export const DataContext = createContext({});
 
 export const DataProvider = ({ children }) => {
-  const initialState = { notify: {}, auth: {}, cart: [] };
+  const initialState = { notify: {}, auth: {}, cart: [], modal: {} };
   const [state, dispatch] = useReducer(reducers, initialState);
+  const [show, setShow] = useState(false);
+
   const { cart } = state;
   useEffect(() => {
     const firstLogin = localStorage.getItem('firstLogin');
@@ -31,5 +33,9 @@ export const DataProvider = ({ children }) => {
   useEffect(() => {
     localStorage.setItem('next_cart', JSON.stringify(cart));
   }, [cart]);
-  return <DataContext.Provider value={{ state, dispatch }}>{children}</DataContext.Provider>;
+  return (
+    <DataContext.Provider value={{ state, dispatch, show, setShow }}>
+      {children}
+    </DataContext.Provider>
+  );
 };
