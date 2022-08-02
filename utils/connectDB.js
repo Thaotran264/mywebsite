@@ -15,6 +15,4 @@ const connectDB = () => {
         console.log('Connected to mongodb.')
     })
 }
-
-
 export default connectDB

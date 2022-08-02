@@ -1,5 +1,8 @@
-import connectDB from '../../../utils/connectDB';
+
+import connectDB from '../../../utils/connectDB'
 import Products from '../../../models/productModel';
+
+connectDB()
 
 export default async (req, res) => {
     switch(req.method){
